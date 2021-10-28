@@ -1,25 +1,42 @@
 import logo from './logo.svg';
 import './App.css';
+//import Todo from './Todo';
+import Book from './Book';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    const book = {
+      title:"코비", 
+      author:"코비짱", 
+      summary:"코비짱이 쓴 책",
+      genre:"소설",
+      release:"2021-10-28", 
+      ISBN:12345
+    }
+
+    return (
+      <div className="App">
+
+        <Book 
+          title={book.title} 
+          author={book.author}
+          summary={book.summary} 
+          genre={book.genre}
+          release={book.release}
+          ISBN={book.ISBN}></Book>
+
+      </div>
   );
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <Todo name="dohyun" done={false} description="cleaning room!"></Todo>
+//     </div>
+
+//   );
+
+
+
 }
 
 export default App;

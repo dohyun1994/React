@@ -693,61 +693,218 @@
 //   export default App;
 
 // * 이벤트 처리하기 연습과제 4
-import './App.css';
-import React, { Component } from 'react';
+// import './App.css';
+// import React, { Component } from 'react';
+// import Button from './Button'
+
+// class App extends Component {
+//   constructor(props){ 
+//     super(props) 
+//     this.state = {
+//       files: []
+//     }
+//     this.fileInput = React.createRef() // ref 생성하기 
+//   }
+//   isValid = (type) => {
+//     return type === 'image'
+//   }
+ 
+//   handleChange = (e) => {
+//     const files = e.target.files
+//     const uploadedFiles = []
+
+//     for(let file of files){
+//       if(this.isValid(file.type.split('/')[0])){
+//         console.log(file.name)
+
+//         const name = file.name
+//         const imgSrc = URL.createObjectURL(file)
+//         uploadedFiles.push({ name, imgSrc })
+//       }else{
+//         alert(`file [${file.name}] type is not valid !`)
+//       }
+//     }
+//     this.setState({ files: uploadedFiles})
+//   }
+//   openFileWindow = () => {
+//     this.fileInput.current.click() // ref 사용하기
+//   }
+
+//   render(){
+//     const { files } = this.state
+   
+//     return (
+//       <div className="App">
+//         {files.length !== 0 && files.map( (file, id) => {
+//           return (
+//             <div key={id}>
+//               <h3>{file.name}</h3>
+//               <img src={file.imgSrc} alt={file.name} width="70px" height="100px"></img>
+//             </div>
+//           )
+//         })}
+//         <input className="Upload" type="file" onChange={this.handleChange} ref={this.fileInput} accept="image/*" multiple></input>
+//         <Button handleClick={this.openFileWindow}>Upload</Button>  
+//       </div>
+//     );
+//   }
+// }
+// export default App;
+
+// 2021/11/18(THU)
+// * 리액트 라우터 기본적인 사용 예시
+// import './App.css'; 
+// import React, { Component } from 'react';
+// import Button from './Button';
+// import { Route, Routes } from 'react-router-dom';
+// import { Home, About, NotFound } from './pages';
+
+// class App extends Component { 
+
+//   render(){ 
+//     return ( 
+//     <div className="App"> 
+//       <Routes>
+//         <Route exact path="/" element={<Home/>}/>
+//         <Route exact path="/about" element={<About/>}/>
+//         <Route path="*" element={<NotFound/>}/>
+//       </Routes>
+//     </div> 
+//     ); 
+//   } 
+// }
+
+// export default App;
+
+// *Link 컴포넌트와 사용방법
+// import './App.css'; 
+// import React, { Component } from 'react'; 
+// import { Route, Routes } from 'react-router-dom'; 
+// import { Home, About, NotFound } from './pages'; 
+// import Menu from './Menu';
+// import Sidebar from './Sidebar'
+// import Button from './Button'
+
+// class App extends Component { 
+//   state = {
+//     open: false
+//   }
+//   showSidebar = () => {
+//     this.setState({open: !this.state.open})
+//   }
+//   render(){ 
+//     const{open} = this.state
+//     return ( 
+//       <div className="App"> 
+//         <Button handleClick={this.showSidebar}>Menu</Button> 
+//         <Sidebar open={open}> 
+//           <Menu></Menu> 
+//         </Sidebar>
+
+//         <Routes> 
+//           <Route exact path="/" element={<Home/>}/> 
+//           <Route exact path="/about" element={<About/>}/> 
+//           <Route path="*" element={<NotFound/>}/> 
+//         </Routes> 
+//       </div> 
+//     ); 
+//   } 
+// } 
+// export default App;
+
+// *Nested Routes와 URL 파라미터 사용하기
+// import './App.css'; 
+// import React, { Component } from 'react'; 
+// import { Route, Routes } from 'react-router-dom'; 
+// import { Home, About, NotFound, Post } from './pages'; 
+// import Menu from './Menu';
+// import Sidebar from './Sidebar'
+// import Button from './Button'
+
+// class App extends Component { 
+//   state = {
+//     open: false
+//   }
+//   showSidebar = () => {
+//     this.setState({open: !this.state.open})
+//   }
+//   render(){ 
+//     const{open} = this.state
+//     return ( 
+//       <div className="App"> 
+//         <Button handleClick={this.showSidebar}>Menu</Button> 
+//         <Sidebar open={open}> 
+//           <Menu></Menu> 
+//         </Sidebar>
+        
+//         <Routes> 
+//           <Route exact path="/" element={<Home/>}/> 
+//           <Route exact path="/about" element={<About/>}/> 
+//           <Route path="/posts" element={<Post/>}>
+//             <Route path=":postId" element={<Post/>}/>
+//           </Route>
+//           <Route path="*" element={<NotFound/>}/>
+//         </Routes> 
+//       </div> 
+//     ); 
+//   } 
+// } 
+// export default App;
+
+import './App.css'; 
+import React, { Component } from 'react'; 
+import { Route, Routes } from 'react-router-dom'; 
+import { Home, About, NotFound, Post } from './pages'; 
+import Menu from './Menu';
+import Sidebar from './Sidebar'
 import Button from './Button'
 
 class App extends Component {
-  constructor(props){ 
-    super(props) 
-    this.state = {
-      files: []
-    }
-    this.fileInput = React.createRef() // ref 생성하기 
-  }
-  isValid = (type) => {
-    return type === 'image'
-  }
- 
-  handleChange = (e) => {
-    const files = e.target.files
-    const uploadedFiles = []
+  homeMenu = [ 
+    { 
+      url: "/", 
+      name: "HOME" 
+    }, 
+    
+    { 
+      url: "/about", 
+      name: "ABOUT" 
+    }, 
+    
+    { 
+      url: "/posts", 
+      name: "POST" 
+    }, 
+  ]
 
-    for(let file of files){
-      if(this.isValid(file.type.split('/')[0])){
-        console.log(file.name)
-
-        const name = file.name
-        const imgSrc = URL.createObjectURL(file)
-        uploadedFiles.push({ name, imgSrc })
-      }else{
-        alert(`file [${file.name}] type is not valid !`)
-      }
-    }
-    this.setState({ files: uploadedFiles})
-  }
-  openFileWindow = () => {
-    this.fileInput.current.click() // ref 사용하기
+  state = {
+    open: false
   }
 
-  render(){
-    const { files } = this.state
-   
-    return (
-      <div className="App">
-        {files.length !== 0 && files.map( (file, id) => {
-          return (
-            <div key={id}>
-              <h3>{file.name}</h3>
-              <img src={file.imgSrc} alt={file.name} width="70px" height="100px"></img>
-            </div>
-          )
-        })}
-        <input className="Upload" type="file" onChange={this.handleChange} ref={this.fileInput} accept="image/*" multiple></input>
-        <Button handleClick={this.openFileWindow}>Upload</Button>  
-      </div>
-    );
+  showSidebar = () => {
+    this.setState({open: !this.state.open})
   }
-}
-
+  
+  render(){ 
+    const{open} = this.state
+    const{homeMenu} = this
+    return ( 
+      <div className="App"> 
+        <Button handleClick={this.showSidebar}>Menu</Button> 
+        <Sidebar open={open}> 
+          <Menu menus={homeMenu}></Menu> 
+        </Sidebar>
+        
+        <Routes> 
+          <Route exact path="/" element={<Home/>}/> 
+          <Route exact path="/about" element={<About/>}/> 
+          <Route path="/posts" element={<Post/>}>
+            <Route path=":postId" element={<Post/>}/>
+          </Route>
+          <Route path="*" element={<NotFound/>}/>
+        </Routes> 
+      </div> 
+    ); 
+  } 
+} 
 export default App;
